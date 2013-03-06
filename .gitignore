@@ -1,0 +1,16 @@
+target/
+project/project
+.history
+
+repos/i-am-submodule/
+repos/push-to-test/
+repos/submodule-i-am/
+
+
+repos/it-is-submodule/
+repos/ptp/
+deploy/iblistener.tbz
+iblistener-*.tbz
+
+.idea*
+
