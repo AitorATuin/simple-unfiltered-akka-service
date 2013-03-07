@@ -1,7 +1,6 @@
 package example
 
 import scala.util.control.Exception._
-
 import org.slf4j.LoggerFactory
 
 object ExampleMain {
@@ -14,7 +13,7 @@ object ExampleMain {
 
     log.info( <div>Example Server Version {example.BuildInfo.version}</div>.text )
 
-    val port =
+    val port = 
       ( allCatch opt args.lift(0).getOrElse("").toInt )
         .filter( _ > 1024  )
         .getOrElse(DefaultPort)

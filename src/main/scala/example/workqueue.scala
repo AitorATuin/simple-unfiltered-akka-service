@@ -21,7 +21,7 @@ object WorkQueue {
 
   def shutdown() = system.shutdown()
 
-  private implicit  val timeout = Timeout(200 millis)
+  private implicit  val timeout = Timeout(1 second)
   private[this]     val system  = ActorSystem("WorkQueue")
   private[this]     val worker  = system.actorOf(Props[WorkQueue], name = "WorkQueue")
 
@@ -34,8 +34,11 @@ class WorkQueue extends Actor {
   import WorkQueue._
 
   def receive:Receive = {
-    // FIXME make a random pause before replying
-    case Msg.UpperCase(s) => sender ! s.toUpperCase
+    case Msg.UpperCase(s) => 
+      // Sleep to give impression of long and costly operation
+      val sleep = scala.util.Random.nextInt(999)+1
+      Thread.sleep(sleep)
+      sender ! s.toUpperCase
   }
 
 }

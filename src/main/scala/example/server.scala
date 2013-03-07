@@ -31,11 +31,11 @@ class ExampleServer
 
         case POST(Params(Payload(p))) =>
 
-        async(rq) {
-          WorkQueue.put( Msg.UpperCase(p) ).mapTo[String].map({ res =>
-            Ok ~> UpperCasePage(p,res) ~> HtmlContent
-          })
-        }
+          async(rq) {
+            WorkQueue.put( Msg.UpperCase(p) ).mapTo[String].map({ res =>
+              Ok ~> UpperCasePage(p,res) ~> HtmlContent
+            })
+          }
 
         case _ => rq.respond( Ok ~> UpperCasePage() ~> HtmlContent)
 
@@ -63,7 +63,7 @@ class ExampleServer
     body onComplete {
       case Success(rf)  => responder.respond(rf)
       case Failure(x)    => 
-        log.error("Async Task completed with error "+x.toString)        
+        log.error("Async Task completed with error "+x.toString+ " " + x.getStackTrace().mkString( "\n" ))        
         responder.respond(RequestTimeout ~> ResponseString(x.toString) )
     }
   }
