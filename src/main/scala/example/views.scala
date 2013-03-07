@@ -31,7 +31,7 @@ trait View {
 
 }
 
-object Index extends View {
+object IndexPage extends View {
   def apply() = render()
   def content(params:Params = Map()) = 
     <div id="index">
