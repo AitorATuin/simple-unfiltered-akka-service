@@ -11,7 +11,7 @@ object ExampleMain {
 
   def main(args:Array[String]) {
 
-    log.info( <div>Example Server Version {example.BuildInfo.version}</div>.text )
+    log.info( s"Example Server Version ${example.BuildInfo.version}" )
 
     val port = 
       ( allCatch opt args.lift(0).getOrElse("").toInt )
@@ -20,7 +20,7 @@ object ExampleMain {
 
     unfiltered.jetty.Http(port).plan(new ExampleServer()).run(
       { s =>
-        log.info( "Unfiltered Server started in port %s".format(s.port))
+        log.info( s"Unfiltered Server started in port $s")
         Runtime.getRuntime.addShutdownHook(ShutdownHook)
       },
       { s =>
@@ -35,7 +35,7 @@ object ExampleMain {
 
   object ShutdownHook extends Thread {
     override def run =  {
-      setName( "IBListenerShutdownHook" )
+      setName( "ExampleServiceShutdownHook" )
       println( "ShutdownHook Invoked" )
       WorkQueue.shutdown
       log.debug( "Shutdown Hook: Akka System stopped" )
