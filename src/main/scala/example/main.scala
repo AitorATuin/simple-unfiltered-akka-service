@@ -20,7 +20,7 @@ object ExampleMain {
 
     unfiltered.jetty.Http(port).plan(new ExampleServer()).run(
       { s =>
-        log.info( s"Unfiltered Server started in port $s")
+        log.info( s"Unfiltered Server started in port $s.port")
         Runtime.getRuntime.addShutdownHook(ShutdownHook)
       },
       { s =>
